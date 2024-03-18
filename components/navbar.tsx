@@ -66,7 +66,7 @@ export default function Nav() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="#">
+                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="/contact">
                         Contact
                     </Link>
                 </NavbarItem>

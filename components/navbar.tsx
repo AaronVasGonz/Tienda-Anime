@@ -2,7 +2,7 @@
 "use client"
 import React from "react";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
-import { AcmeLogo } from "./AcmeLogo.jsx";
+import { AcmeLogo } from "./AcmeLogo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,7 +34,7 @@ export default function Nav() {
                     className="sm:hidden"
                 />
                 <NavbarBrand>
-                    <AcmeLogo />
+                    <AcmeLogo/>
                     <Link href="/"><p className="font-bold text-inherit text-slate-50 hover:text-violet-600 transition duration-300 ease-in cursor-pointer">Tienda Anime</p></Link>
                 </NavbarBrand>
             </NavbarContent>
@@ -51,17 +51,17 @@ export default function Nav() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link href="#" className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in">
+                    <Link href="/products" className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in">
                         Products
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link href="#" className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in">
-                        Best Sales
+                    <Link href="/bestSellers" className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in">
+                        Best Sellers
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="#">
+                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="/about">
                         About Us
                     </Link>
                 </NavbarItem>
@@ -92,10 +92,10 @@ export default function Nav() {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem className="hidden lg:flex">
-                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="#">Login</Link>
+                    <Link className="text-slate-50 hover:text-violet-600 transition duration-300 ease-in" href="/login">Login</Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} color="default" href="#" variant="flat">
+                    <Button as={Link} color="default" href="/signUp" variant="flat">
                         Sign Up
                     </Button>
                 </NavbarItem>

@@ -1,9 +1,9 @@
-# Next.js & NextUI Template
+Tienda Anime/Anime Web Shop Project
 
-This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
+This is the Frontend of the app "Tienda Anime" in my profile also you can find the backend of the website"
 
-## Technologies Used
 
+# Technologies Used in Frontend
 - [Next.js 13](https://nextjs.org/docs/getting-started)
 - [NextUI v2](https://nextui.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -14,14 +14,7 @@ This is a template for creating applications using Next.js 13 (app directory) an
 
 ## How to Use
 
-
-### Use the template with create-next-app
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+## Download the repository in visual studio code
 
 ### Install dependencies
 
@@ -34,7 +27,7 @@ npm install
 ```bash
 npm run dev
 ```
-
+This project is powered by NextUI
 ## License
 
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).

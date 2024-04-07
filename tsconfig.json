@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/signUp/page.jsx", "app/functions/passwordStrength.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/signUp/page.jsx", "app/functions/passwordStrength.jsx", "app/login/page.jsx", "components/logout.tsx", "components/navbar.tsx", "utils/authUtils.js"],
   "exclude": ["node_modules"]
 }

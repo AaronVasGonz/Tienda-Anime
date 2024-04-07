@@ -6,11 +6,12 @@ import { env } from 'process';
 import PasswordStrengthMeter from "../functions/passwordStrength.jsx";
 import validatePassword from "../functions/validatefunctions.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { authIfLogin} from '../../utils/authPage';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Registro() {
-
+    authIfLogin();
     //agregar un estado para controlar la visibilidad de la contrasena
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('')
@@ -133,7 +134,7 @@ export default function Registro() {
                         console.log("Errores del servidor:", serverErrors);
                         setValidationErrors(serverErrors);
                     }
-                    
+
                 }
                 if (responseData.error) {
                     const serverErrors = {};
@@ -210,7 +211,7 @@ export default function Registro() {
                     onChange={handleChange}
                 />
             </div>
-            <div className="relative mb-5">
+            <div className="mb-5 flex flex-col">
                 <label htmlFor="password" className="mb-3 block text-base font-medium text-white">
                     Contraseña
                 </label>
@@ -218,25 +219,29 @@ export default function Registro() {
                    si el icono esta faEye pasa a text y si esta faEyeSlash pasa a password
 
                   **/}
-                <input
-                    name="password"
+                  <div className="relative">
 
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Tu contraseña"
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-                {/* Este es el icono que estara cambiando entre 
+
+                    <input
+                        name="password"
+
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Tu contraseña"
+                        className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+                        onChange={handleChange}
+                    />
+                    {/* Este es el icono que estara cambiando entre 
                 faEyeSlash y faEye segun como se quiera ver la contrasena
                 entonces en un evento on click se genera el mantener la visibilidad 
     
                 */}
-                <span
-                    className="passwordIcon"
-                    onClick={tooglePasswordVisibility}
-                >
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                </span>
+                     <span
+                        className="absolute inset-y-0 right-0 flex items-center pr-3  text-black  cursor-pointer"
+                        onClick={tooglePasswordVisibility}
+                    >
+                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                    </span>
+                </div>
                 <div>
 
                     <PasswordStrengthMeter password={formData.password} />

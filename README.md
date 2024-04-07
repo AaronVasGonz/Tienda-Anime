@@ -9,6 +9,7 @@ This is the Frontend of the app "Tienda Anime" in my profile also you can find t
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Javascript](https://www.javascript.com/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
 

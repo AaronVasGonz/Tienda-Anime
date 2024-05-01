@@ -102,26 +102,31 @@ export default function Nav() {
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Static Actions">
-                                <DropdownItem key="Categories" textValue="Categories">
-                                    <p className="hover:text-violet-500">Categories</p>
+                                <DropdownItem  href="/categoriesAdmin" key="Categories" textValue="Categories">
+                                        <p className="hover:text-violet-500">Categories</p>
                                 </DropdownItem>
-                                <DropdownItem key="Collections" textValue="Collections">
-                                    <Link href="/collectionsAdmin" className="text-white">
-                                    <p className="hover:text-violet-500">Collections</p>
-                                    </Link>
-                                  
+                                <DropdownItem href="/collectionsAdmin" key="Collections" textValue="Collections">
+                                        <p className="hover:text-violet-500">Collections</p>
                                 </DropdownItem>
-                                <DropdownItem key="Products" textValue="Products">
-                                    <p className="hover:text-violet-500">Products</p>
+                                <DropdownItem href="/productsAdmin" key="InventoryProducts" textValue="Products">
+                                    <p className="hover:text-violet-500"> Products Inventory </p>
                                 </DropdownItem>
+                                <DropdownItem key="InventoryClothes" textValue="Products">
+                                    <p className="hover:text-violet-500">Clothes Inventory </p>
+                                </DropdownItem>
+
+                                <DropdownItem  href="/providersAdmin" key="Providers" textValue="Providers">
+                                        <p className="hover:text-violet-500">Providers</p>
+                                </DropdownItem>
+
                                 <DropdownItem key="Reports" textValue="Reports">
                                     <p className="hover:text-violet-500">Reports</p>
                                 </DropdownItem>
                                 <DropdownItem key="SubCategories" textValue="Sub Categories">
                                     <p className="hover:text-violet-500">Sub Categories</p>
                                 </DropdownItem>
-                                <DropdownItem key="Users" textValue="Users">
-                                    <p className="hover:text-violet-500">Users</p>
+                                <DropdownItem href="/usersAdmin" key="Users" textValue="Users">
+                                        <p className="hover:text-violet-500">Users</p>
                                 </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>

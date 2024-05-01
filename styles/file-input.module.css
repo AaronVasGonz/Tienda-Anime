@@ -1,0 +1,17 @@
+
+.fileInput::-webkit-file-upload-button {
+    color: #ffffff;
+    background-color: #000000;
+    border-radius: 4px;
+    width: max auto;
+    padding: 2px 6px;
+    
+    border: 1px solid #9353d3;
+    cursor: pointer;
+  }
+  
+  
+
+  .fileInput::-webkit-file-upload-button:hover{
+
+  }

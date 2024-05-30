@@ -1,6 +1,6 @@
 import React from "react";
-import CardsBestSellers from "@/components/bestSellersCardContainer";
-import SearchBar from "@/components/searchbar";
+import CardsBestSellers from "@/components/cards/bestSellersCardContainer";
+import SearchBar from "@/components/navigation/searchbar";
 export default function bestSellers() {
     return (
         <div>

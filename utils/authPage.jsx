@@ -1,8 +1,11 @@
 
 "use client"
-import { getTokenFromLocalStorage, saveTokenToLocalStorage, getUserFromLocalStorage } from './auth';
+import { getTokenFromLocalStorage, saveTokenToLocalStorage, getUserFromLocalStorage, getIvFromLocalStorage } from './auth';
 import { usePathname, useRouter } from 'next/navigation';
 import { use, useState, useEffect } from "react";
+import { decryptData } from './auth';
+import { user } from '@nextui-org/react';
+
 
 export const authIfLogin = () => {
     const pathname = usePathname();
@@ -14,28 +17,31 @@ export const authIfLogin = () => {
             router.push('/');
         }
     }, [router]);
-
 }
 export const useAuthAdmin = () => {
     const router = useRouter();
-    let userAdmin = false;
-    let token = '';
-    try {
-        token = getTokenFromLocalStorage();
-        const userAdminString = getUserFromLocalStorage();
-
-        if (userAdminString) {
-            const user = JSON.parse(userAdminString);
-            userAdmin = user.roles.roleAdministrador === 'ADMIN';
-        }
-    } catch (error) {
-        console.error('Error al parsear el objeto JSON:', error);
-    }
-
     useEffect(() => {
-        if (!token || !userAdmin) {
-            router.push('/');
+        try {
+            const token = getTokenFromLocalStorage();
+            const userAdminEncrypt = getUserFromLocalStorage();
+            const iv = getIvFromLocalStorage();
+            if (token && userAdminEncrypt && iv) {
+                decryptData(userAdminEncrypt, iv)
+                    .then(userAdminString => {
+                        if (userAdminString) {
+                            const isAdmin = userAdminString.roles.roleAdministrador === 'ADMIN';
+                            if (!token || !isAdmin) {
+                                router.push('/');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al parsear el objeto JSON:', error);
+                    });
+            }else{
+                router.push('/');}
+        } catch (error) {
+            console.error('Error al parsear el objeto JSON:', error);
         }
-        // Si token y userAdmin son válidos, no redirigir
-    }, [router, token, userAdmin]);
-};
+    }, [router]);
+}

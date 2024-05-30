@@ -3,13 +3,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Dropdown, Image, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import validator from 'validator';
-import { getUserFromLocalStorage, getTokenFromLocalStorage } from '@/utils/auth';
-
+import { getTokenFromLocalStorage } from '@/utils/auth';
+import { handleServerErrors } from '../../../utils/serverUtils';
+import { useRouter } from 'next/navigation';
 export default function AddCategory() {
     const [selectedKeys, setSelectedKeys] = useState('Seleccione una opcion');
     const [errors, setErrors] = useState({});
     const [validationErrors, setValidationErrors] = useState({});
-
+    const router = useRouter();
 
     const [formData, setFormData,] = useState({
         Detalle: "",
@@ -17,25 +18,23 @@ export default function AddCategory() {
     });
 
     const handleChange = (e) => {
-
-        const { name, value } = e.target;
-
-        setFormData({ ...formData, [name]: value });
-        console.log(formData);
-        if (errors[name]) {
-            setErrors({ ...errors, [name]: "" })
-
-        }
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        // Eliminar el error relacionado con el campo actual
+        const updatedErrors = { ...errors };
+        delete updatedErrors[e.target.name];
+        setValidationErrors({});
+        setErrors({});
     }
     const handleStatusChange = (key) => {
         const status = key// Acceder al primer elemento del array de selectedKeys
         setFormData({ ...formData, status });
+        setErrors({});
+        setValidationErrors({});
 
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        let formErrors = {};
+    const validationForm = () => {
+        const formErrors = {};
 
         if (!formData.Detalle) {
             formErrors.detalle = 'Debe asignar un nombre a la categoria';
@@ -44,6 +43,16 @@ export default function AddCategory() {
             formErrors.status = 'Debe asignar un status a la categoria';
 
         }
+
+        return formErrors;
+
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formErrors = validationForm();
+
         if (Object.keys(formErrors).length === 0) {
             try {
                 const token = getTokenFromLocalStorage();
@@ -56,7 +65,6 @@ export default function AddCategory() {
                     status: sanitizedSatus
                 };
                 const formDataJSON = JSON.stringify(formDataToSend);
-
 
                 const response = await fetch('http://localhost:3001/api/categoriesAdmin', {
                     method: 'POST',
@@ -71,27 +79,10 @@ export default function AddCategory() {
                 const responseData = await response.json();
 
                 if (response.ok) {
-
-                    console.log("La categoria se ha creado correctamente");
-                    window.location.href = '/categoriesAdmin';
+                    router.push('/categoriesAdmin');
                 } else {
                     console.log("Error al crear la categoria");
-                    if (responseData.errors) {
-                        //entonces creamos un objeto de errores del servidor
-                        const serverErrors = {};
-                        responseData.errors.forEach(error => {
-                            // El campo `param` contiene el nombre del campo asociado al error
-                            serverErrors[error.param] = error.msg;
-                        });
-                        console.log("Errores del servidor:", serverErrors);
-                        setValidationErrors(serverErrors);
-                    }
-                    if (responseData.error) {
-                        const serverErrors = {};
-                        serverErrors["error"] = responseData.error;
-                        console.log("Errores del servidor:", serverErrors);
-                        setValidationErrors(serverErrors);
-                    }
+                    handleServerErrors(responseData, setValidationErrors, setErrors);
                 }
             } catch (error) {
 

@@ -1,10 +1,10 @@
 "use client"
-import Cards from "@/components/cardsCollections";
+import Cards from "@/components/cards/cardsCollections";
 import React from "react";
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 
-import SearchBar from "@/components/searchbar";
+import SearchBar from "@/components/navigation/searchbar";
 export default function Collections() {
 
 

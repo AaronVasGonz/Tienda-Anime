@@ -1,6 +1,6 @@
 import React from "react";
-import SearchBar from "@/components/searchbar";
-import CardsProducts from "@/components/cardProductContainer";
+import SearchBar from "@/components/navigation/searchbar";
+import CardsProducts from "@/components/cards/cardProductContainer";
 import NavBarProducts from "@/components/productsNavBar";
 export default function products() {
 

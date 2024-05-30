@@ -6,9 +6,10 @@ import { env } from 'process';
 import PasswordStrengthMeter from "../functions/passwordStrength.jsx";
 import validatePassword from "../functions/validatefunctions.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { authIfLogin} from '../../utils/authPage';
+import { authIfLogin } from '../../utils/authPage';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import { Input } from "@nextui-org/react";
+import 'animate.css';
 
 export default function Registro() {
     authIfLogin();
@@ -39,12 +40,15 @@ export default function Registro() {
     const [signupSuccsess, setSignUpSuccess] = useState(false);
     const apiUrl = process.env.NEXT_PUBLIC_API_REGISTRO_URL;
     console.log(apiUrl);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        if (errors[name]) {
-            // Si hay un error para este campo, elimínalo del estado de errores
-            setErrors({ ...errors, [name]: "" });
-        }
+        const updatedErrors = { ...errors };
+
+        delete updatedErrors[e.target.name];
+        setValidationErrors({});
+        setErrors(updatedErrors);
+        console.log(formData);
     };
 
 
@@ -116,7 +120,7 @@ export default function Registro() {
                     setSignUpSuccess(true);
                     setTimeout(() => {
                         setSignUpSuccess(false);
-                        window.location.href = '/login'
+                        window.location.href = '/signUp/verify?email=' + formData.email + '&name=' + formData.nombre;
                     }, 2000)
 
                 } else {
@@ -154,123 +158,125 @@ export default function Registro() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="w-full text-6xl font-bold mb-10">
-                <h1 className="w-full">Únete a nuestra comunidad</h1>
-            </div>
-            <div className="w-full text-3xl font-bold mb-10">
-                <h3 className="w-full">Crea tu cuenta</h3>
-            </div>
-
-            <div className="mb-5">
-                <label htmlFor="name" className="mb-3 block text-base font-medium text-white">
-                    Nombre
-                </label>
-                <input
-                    type="text"
-
-                    name="nombre"
-                    placeholder="Nombre completo"
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-5">
-                <label htmlFor="apellido" className="mb-3 block text-base font-medium text-white">
-                    Apellido
-                </label>
-                <input
-                    name="apellido"
-                    type="text"
-                    placeholder="Primer Apellido"
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-5">
-                <label htmlFor="name" className="mb-3 block text-base font-medium text-white">
-                    Apellido
-                </label>
-                <input
-                    name="apellido2"
-                    type="text"
-                    placeholder="Segundo Apellido si tienes uno"
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-5">
-                <label htmlFor="email" className="mb-3 block text-base font-medium text-white">
-                    Email
-                </label>
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Tu correo electrónico"
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-5 flex flex-col">
-                <label htmlFor="password" className="mb-3 block text-base font-medium text-white">
-                    Contraseña
-                </label>
-                {/* Se asigna el tipo de dato que se pasa en este caso si 
-                   si el icono esta faEye pasa a text y si esta faEyeSlash pasa a password
-
-                  **/}
-                  <div className="relative">
+        <form onSubmit={handleSubmit}
+            className="flex flex-col w-full sm:items-center"
+        >
 
 
-                    <input
-                        name="password"
+            <div className="flex flex-col animate-bounce-once text-3xl text-center items-center font-bold ">
+                <img 
+                loading="lazy"
+                src="/tanjiro.webp" 
+                width={150}
+                height={150}
+                className="" 
+                alt="tanjiroIcon" />
+            </div>
+            <div className="flex flex-col  text-5xl text-center font-bold mb-10 ">
+                <h1 className="w-full  animate-slide-down ">Sign <span className="text-main-purple">Up</span></h1>
+            </div>
+            <div className=" sm:w-1/2 flex flex-col  animate-slide-left  bg-neutral-950 rounded-lg  pl-4 pr-4">
+                <div className="w-full flex flex-col items-center justify-center text-center font-bold mb-10 mt-4">
+                    <h2 className="text-2xl mb-4">Create Your Account</h2>
+                    <p className="text-xl">You can create your account here.</p>
+                </div>
 
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Tu contraseña"
-                        className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+                <div className="mb-5 flex flex-col items-center">
+                    <Input
+                        name="nombre"
+                        type="text"
+                        label="Name"
+                        labelPlacement="inside"
+                        placeholder="Name"
+                        className=" sm:w-1/2  "
                         onChange={handleChange}
                     />
-                    {/* Este es el icono que estara cambiando entre 
-                faEyeSlash y faEye segun como se quiera ver la contrasena
-                entonces en un evento on click se genera el mantener la visibilidad 
-    
-                */}
-                     <span
-                        className="absolute inset-y-0 right-0 flex items-center pr-3  text-black  cursor-pointer"
-                        onClick={tooglePasswordVisibility}
-                    >
-                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                    </span>
-                </div>
-                <div>
 
+                </div>
+                <div className="mb-5 flex flex-col items-center">
+
+                    <Input
+                        name="apellido"
+                        type="text"
+                        label="First Last Name"
+                        labelPlacement="inside"
+                        placeholder="Last name"
+                        className=" sm:w-1/2  "
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5 flex flex-col items-center">
+                    <Input
+                        name="apellido2"
+                        type="text"
+                        label="Second Last Name (optional)"
+                        labelPlacement="inside"
+                        placeholder="Second last name "
+                        className=" sm:w-1/2  "
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5 flex flex-col items-center">
+                    <Input
+                        name="email"
+                        type="email"
+                        label="Your Email"
+                        labelPlacement="inside"
+                        placeholder="Email "
+                        className=" sm:w-1/2  "
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5 flex flex-col items-center">
+
+                    <Input
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="You password"
+                        label="Password"
+                        className="sm:w-1/2  "
+                        onChange={handleChange}
+                        endContent={
+                            <span
+                                className="  text-wite  cursor-pointer mb-1"
+                                onClick={tooglePasswordVisibility}
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </span>
+                        }
+                    />
+
+                </div>
+                <div className="mb-5 flex flex-col items-center">
+
+                    <Input
+                        name="password2"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="You password"
+                        label="Password"
+                        className="sm:w-1/2  "
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5 flex flex-col w-1/2 text-center ml-auto mr-auto">
                     <PasswordStrengthMeter password={formData.password} />
-                    <p className=" mt-1 ml-1 text-white">Fuerza de la contraseña</p>
+                    <p className=" mt-1 ml-1 text-white">Strength meter</p>
+                </div>
+                <div className="flex flex-col   items-center justify-center">
+                    <button type="submit" className="login-button mt-4 mb-6">
+                        Registrarse
+                    </button>
                 </div>
             </div>
-            <div className="mb-5">
-                <label htmlFor="confirmPassword" className="mb-3 block text-base font-medium text-white">
-                    Confirmar contraseña
-                </label>
-                <input
-                    name="password2"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Confirma tu contraseña"
-
-                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-                    onChange={handleChange}
-                />
-
-            </div>
-            {Object.keys(errors).map((field) => (
-                <div key={field} className="mb-3">
-                    <div className="bg-red-700 p-2 rounded">
+            {errors && Object.keys(errors).map((field) => (
+                <div key={field} className='flex flex-col items-center sm:w-1/2'>
+                    <div className="bg-red-700 p-2 text-center rounded mt-4">
                         <p className="text-white text-base">{errors[field]}</p>
                     </div>
                 </div>
             ))}
             {Object.keys(validationErrors).map((field) => (
-                <div key={field} className="mb-3">
+                <div key={field} className="mb-3 mt-4">
                     <div className="bg-red-700 p-2 rounded">
                         <p className="text-white text-base"> {validationErrors[field]}</p>
                     </div>
@@ -283,11 +289,7 @@ export default function Registro() {
                     <h2 className="text-white mb-5 font-bold text-2xl mt-3">Registro exitoso</h2>
                 </div>
             )}
-            <div>
-                <button type="submit" className="hover:shadow-form rounded-md bg-purple-500 hover:bg-purple-600 py-3 px-8 text-base font-semibold text-white outline-none mt-5">
-                    Registrarse
-                </button>
-            </div>
+
         </form>
     );
 };

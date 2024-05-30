@@ -1,7 +1,7 @@
 import NavBarProducts from "@/components/productsNavBar";
 import React from "react";
-import CardsProducts from "@/components/cardProductContainer";
-import SearchBar from "@/components/searchbar";
+import CardsProducts from "@/components/cards/cardProductContainer";
+import SearchBar from "@/components/navigation/searchbar";
 export default function Figuras() {
     return (
         <div>

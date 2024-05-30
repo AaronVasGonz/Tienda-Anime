@@ -2,23 +2,19 @@ import "@/styles/globals.css";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-import FooterPagina from "@/components/footer";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Metadata, Viewport } from "next";
-import Nav from "@/components/navbar";
+import dynamic from 'next/dynamic';
 import clsx from "clsx";
-import ScrollToUpButton from "@/components/Scrollup";
-
-
-
-
+const Nav = dynamic(() => import('@/components/navigation/navbar'), { ssr: false });
+import FooterPagina from "@/components/navigation/footer";
+import ScrollToUpButton from "@/components/navigation/Scrollup";
 
 
 export const viewport: Viewport = {
 	themeColor: [
-		{ media: "(prefers-color-scheme: light)", color: "white" },
 		{ media: "(prefers-color-scheme: dark)", color: "black" },
 	],
 };
@@ -32,9 +28,7 @@ export const metadata: Metadata = {
 	},
 	description: siteConfig.description,
 	icons: {
-		icon: "/favicon.ico",
-		shortcut: "/favicon-16x16.png",
-		apple: "/apple-touch-icon.png",
+		icon: "/gokuIcon.webp",
 	},
 };
 
@@ -65,9 +59,10 @@ export default function RootLayout(
 						<ScrollToUpButton/>
 						
 					</div>
-				
+					
 				</Providers>
 				
+               
 			</body>
 		</html>
 	);

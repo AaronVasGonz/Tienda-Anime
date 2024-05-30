@@ -9,6 +9,7 @@ export default function UpdateCollectionPage() {
   useAuthAdmin();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
+  
   return (
     <div>
       <UpdateCollectionForm id={id}/>

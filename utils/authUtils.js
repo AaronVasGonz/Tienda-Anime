@@ -2,6 +2,8 @@
 import { getTokenFromLocalStorage } from './auth';
 
 export const verifyToken = async () => {
+
+   
     const token = getTokenFromLocalStorage();
     const user = localStorage.getItem('user');
     if (!token) {
@@ -23,8 +25,10 @@ export const verifyToken = async () => {
         if (response.ok) {
             return true;
         } else {
+
             localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            localStorage.removeItem('User');
+            localStorage.removeItem('project');
             return false;
         }
     } catch (error) {

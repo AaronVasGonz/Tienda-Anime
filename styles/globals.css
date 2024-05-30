@@ -2,32 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "https://unpkg.com/open-props";
 
 
-.passwordStrengthMeter{
-    padding: 8px;
-    background-color: #000;
-    border-radius: 8px;
-    max-width: 300px;
-    margin-top:  20px;
+
+
+:root {
+    --font-sans: Arial, sans-serif;
+    /* Change this to your desired sans-serif font */
+    --font-weight-6: 600;
+    /* Adjust this value to your desired font weight */
+    --font-size-5: 1rem;
+    /* Adjust this value to your desired font size */
+    --gray-8: #ffffff;
+    /* Change this to your desired dark gray color */
+    --ppurple-1: #7d0396;
+    --purple-0: #b200d6;
+    --blue-700: #1d4ed8;
+    /* Change this to your desired light gray color */
+    --size-4: 0.75rem;
+    /* Adjust this value to your desired padding size */
+    --size-8: 3rem;
+    /* Adjust this value to your desired padding size */
+    --size-3: 0.5rem;
+    /* Adjust this value to your desired border size */
+    --size-2: 2px;
+    /* Adjust this value to your desired border size */
 }
 
-.passwordStrengthContainer{
+
+.passwordStrengthMeter {
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.passwordStrengthContainer {
     width: 100%;
     background-color: #ddd;
     border-radius: 5px;
 }
 
-.strengthBar{
+.strengthBar {
     height: 8px;
     border-radius: 5px;
-    transition: width 0.5s ease-in-out, background-Color 0.5s ease-in-out,  filter 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, background-Color 0.5s ease-in-out, filter 0.5s ease-in-out;
 
 }
 
 
 
-.passwordIcon{
+.passwordIcon {
     background-color: rgb(196, 191, 191);
     font-weight: bold;
     border-radius: 10px;
@@ -36,9 +62,200 @@
     cursor: pointer;
 }
 
-.passwordIcon:hover{
+.passwordIcon:hover {
     background-color: rgb(163, 163, 163);
 }
+
+.buttonColor{
+    background-color: var(--purple-0);
+    color: var(--gray-8);
+}
+
+.buttonColor:hover{
+    background-color: var(--ppurple-1);
+    color: var(--gray-8);
+}
+
+
+/* Login Button and Styles for login */
+
+
+.spanIn{
+    color: var(--purple-0);
+}
+
+.login-button {
+    font-weight: var(--font-weight-6);
+    font-size: var(--font-size-5);
+    color: var(--gray-8);
+    background: var(--purple-0);
+    border: 0;
+    border-radius: 8px;
+    padding: var(--size-4) var(--size-8);
+    transform: translateY(calc(var(--y, 0) * 1%)) scale(var(--scale));
+    transition: transform 0.1s;
+    position: relative;
+}
+
+.login-button:hover {
+    --y: -10;
+    --scale: 1.1;
+    --border-scale: 1;
+}
+
+.login-button:active {
+    --y: 5%;
+    --scale: 0.9;
+    --border-scale: 0.9, 0.8;
+}
+.login-button:before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--size-3) * -1);
+    border: var(--size-2) solid var(--purple-0);
+    border-radius: inherit;
+    transform: scale(var(--border-scale, 0));
+    transition: transform 0.125s;
+    --angle-one: 105deg;
+    --angle-two: 290deg;
+    --spread-one: 30deg;
+    --spread-two: 40deg;
+    --start-one: calc(var(--angle-one) - (var(--spread-one) * 0.5));
+    --start-two: calc(var(--angle-two) - (var(--spread-two) * 0.5));
+    --end-one: calc(var(--angle-one) + (var(--spread-one) * 0.5));
+    --end-two: calc(var(--angle-two) + (var(--spread-two) * 0.5));
+    mask: conic-gradient(transparent 0 var(--start-one),
+            white var(--start-one) var(--end-one),
+            transparent var(--end-one) var(--start-two),
+            white var(--start-two) var(--end-two),
+            transparent var(--end-two));
+    z-index: -1;
+}
+
+/*Update button*/
+
+.update-button {
+    font-weight: var(--font-weight-6);
+    font-size: var(--font-size-5);
+    color: var(--gray-8);
+    background: var(--blue-700);
+    border: 0;
+    border-radius: 8px;
+    padding: var(--size-4) var(--size-8);
+    transform: translateY(calc(var(--y, 0) * 1%)) scale(var(--scale));
+    transition: transform 0.1s;
+    position: relative;
+}
+
+
+.update-button:hover {
+    --y: -10;
+    --scale: 1.1;
+    --border-scale: 1;
+}
+
+.update-button:active {
+    --y: 5%;
+    --scale: 0.9;
+    --border-scale: 0.9, 0.8;
+}
+
+.update-button:before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--size-3) * -1);
+    border: var(--size-2) solid var(--blue-700);
+    border-radius: inherit;
+    transform: scale(var(--border-scale, 0));
+    transition: transform 0.125s;
+    --angle-one: 105deg;
+    --angle-two: 290deg;
+    --spread-one: 30deg;
+    --spread-two: 40deg;
+    --start-one: calc(var(--angle-one) - (var(--spread-one) * 0.5));
+    --start-two: calc(var(--angle-two) - (var(--spread-two) * 0.5));
+    --end-one: calc(var(--angle-one) + (var(--spread-one) * 0.5));
+    --end-two: calc(var(--angle-two) + (var(--spread-two) * 0.5));
+    mask: conic-gradient(transparent 0 var(--start-one),
+            white var(--start-one) var(--end-one),
+            transparent var(--end-one) var(--start-two),
+            white var(--start-two) var(--end-two),
+            transparent var(--end-two));
+    z-index: -1;
+}
+
+
+
+
+/*animation*/
+.animate-bounce-once {
+    animation-name: bounceInDown; /* Reemplaza 'bounce' por 'fadeIn' */
+    animation-duration: .8s;
+    animation-fill-mode: forwards;
+  }
+
+.animate-slide-down {
+    animation-name: slideInDown;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+  .animate-slide-up {
+    animation-name: slideInUp;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+
+
+  .animate-slide-left {
+    animation-name: slideInLeft;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+  .animate-slide-right {
+    animation-name: slideInRight;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+
+  .avatar{
+    display: flex;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 3.2px solid #ffffff;
+    border-color: var(--purple-0);
+}
+
+.avatar-navbar{
+    border-radius: 50%;
+    border: 2.0px solid #ffffff;
+    border-color: var(--purple-0);
+    cursor: pointer;
+}
+
+.dropdown{
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.dropdown:hover{
+    transition: all 0.3s ease-in-out;
+    border: .5px solid var(--purple-0);
+    
+}
+
+.dropdown-item{
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.input_Country {
+    border-radius: 8px;
+    padding: 5px 10px;
+    background-color: #27262b;
+    color: #ffffff;
+}
+
+
 
 
 

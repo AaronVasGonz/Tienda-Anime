@@ -216,6 +216,11 @@
     animation-duration: .2s;
     animation-fill-mode: forwards;
   }
+  .animate-backout-up{
+    animation-name: backOutUp;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
 
   .avatar{
     display: flex;

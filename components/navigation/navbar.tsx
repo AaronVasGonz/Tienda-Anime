@@ -218,61 +218,124 @@ export default function Nav() {
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>
-                    <Link href="#" className="text-slate-50 hover:text-main-purple">
+                    <Link href="/products" className="text-slate-50 hover:text-main-purple">
                         Products
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>
-                    <Link className="text-slate-50 hover:text-main-purple" href="#">
+                    <Link className="text-slate-50 hover:text-main-purple" href="/about">
                         About Us
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>
-                    <Link className="text-slate-50 hover:text-main-purple" href="#">
+                    <Link className="text-slate-50 hover:text-main-purple" href="/contact">
                         Contact
                     </Link>
                 </NavbarMenuItem>
 
                 {isAuthenticated ? (
-                    <NavbarMenuItem>
-                        <Dropdown placement="bottom-end"
-                            backdrop="blur"
-                            className="mb-2"
-                        >
-                            <DropdownTrigger>
-                                <Image
-                                    loading="lazy"
-                                    alt="avatar"
-                                    width={42}
-                                    height={42}
-                                    className=" avatar-navbar transition-transform hover:scale-105 duration-300 ease-in"
-                                    src={image ? image : "/no-avatar-image.jpg"}
-                                />
-                            </DropdownTrigger>
-                            <DropdownMenu aria-label="Profile Actions" variant="flat">
-                                <DropdownItem key="profile" className="h-14 gap-2 hover:text-main-purple transition duration-300 ease-in">
-                                    <div className=" hover:text-main-purple transition duration-300 ease-in">
-                                        <p className="font-semibold">Signed in as</p>
-                                        <p className="font-semibold ">{email}</p>
-                                    </div>
-                                </DropdownItem>
-                                <DropdownItem href="/settings" className="" key="settings">
-                                    <p className="hover:text-main-purple transition duration-300 ease-in">Settings</p>
-                                </DropdownItem>
-                                <DropdownItem key="help_and_feedback">
-                                    <p className="hover:text-main-purple transition duration-300 ease-in">Help & Feedback</p>
-                                </DropdownItem>
-                                <DropdownItem key="logout" color="danger">
-                                    <LogoutButton>
-                                        <div className="w-full">
-                                            <p className="">Logout</p>
+                    <>
+                        <NavbarMenuItem>
+                            <Dropdown placement="bottom-end"
+                                backdrop="blur"
+                                className="mb-2"
+                            >
+                                <DropdownTrigger>
+                                    <Image
+                                        loading="lazy"
+                                        alt="avatar"
+                                        width={42}
+                                        height={42}
+                                        className=" avatar-navbar transition-transform hover:scale-105 duration-300 ease-in"
+                                        src={image ? image : "/no-avatar-image.jpg"}
+                                    />
+                                </DropdownTrigger>
+                                <DropdownMenu aria-label="Profile Actions" variant="flat">
+                                    <DropdownItem key="profile" className="h-14 gap-2 hover:text-main-purple transition duration-300 ease-in">
+                                        <div className=" hover:text-main-purple transition duration-300 ease-in">
+                                            <p className="font-semibold">Signed in as</p>
+                                            <p className="font-semibold ">{email}</p>
                                         </div>
-                                    </LogoutButton>
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                        <p className="mt-2">Welcome {name}</p>
-                    </NavbarMenuItem>
+                                    </DropdownItem>
+                                    <DropdownItem href="/settings" className="" key="settings">
+                                        <p className="hover:text-main-purple transition duration-300 ease-in">Settings</p>
+                                    </DropdownItem>
+                                    <DropdownItem key="help_and_feedback">
+                                        <p className="hover:text-main-purple transition duration-300 ease-in">Help & Feedback</p>
+                                    </DropdownItem>
+                                    <DropdownItem key="logout" color="danger">
+                                        <LogoutButton>
+                                            <div className="w-full">
+                                                <p className="">Logout</p>
+                                            </div>
+                                        </LogoutButton>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                            <p className="mt-2">Welcome {name}</p>
+
+                        </NavbarMenuItem>
+                        {isRolAdmin ? (
+                            <NavbarMenuItem>
+                                <Dropdown>
+                                    <DropdownTrigger>
+                                        <Button
+                                            variant="bordered"
+                                        >
+                                            Admin
+                                        </Button>
+                                    </DropdownTrigger>
+                                    <DropdownMenu aria-label="Static Actions">
+                                        <DropdownItem key="Categories" textValue="Categories">
+                                            <Link href="/categoriesAdmin">
+                                                <p className="hover:text-purple-600">Categories</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="Collections" textValue="Collections">
+                                            <Link href="/collectionsAdmin">
+                                                <p className="hover:text-purple-600">Collections</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="InventoryProducts" textValue="Products">
+                                            <Link href="/productsAdmin">
+                                                <p className="hover:text-purple-600">Products Inventory</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="InventoryClothes" textValue="Clothes">
+                                            <Link href="/clothesAdmin">
+                                                <p className="hover:text-purple-600">Clothes Inventory</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="Providers" textValue="Providers">
+                                            <Link href="/providersAdmin">
+                                                <p className="hover:text-purple-600">Providers</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="Reports" textValue="Reports">
+                                            <Link href="/reportsAdmin">
+                                                <p className="hover:text-purple-600">Reports</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="SubCategories" textValue="Sub Categories">
+                                            <Link href="/subcategoriesAdmin">
+                                                <p className="hover:text-purple-600">Sub Categories</p>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem key="Users" textValue="Users">
+                                            <Link href="/usersAdmin">
+                                                <p className="hover:text-purple-600">Users</p>
+                                            </Link>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </NavbarMenuItem>
+                        ) : (
+                            <NavbarMenuItem>
+
+                            </NavbarMenuItem>
+                        )
+                        }
+                    </>
 
                 ) : (
                     <>

@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "@/components/navigation/searchbar";
 import CardsProducts from "@/components/cards/cardProductContainer";
-import NavBarProducts from "@/components/productsNavBar";
+import NavBarProducts from "@/components/navigation/productsNavBar";
 export default function products() {
 
     return (

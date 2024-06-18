@@ -1,11 +1,8 @@
-import { getTokenFromLocalStorage } from '../../auth';
+import { getTokenFromLocalStorage,removeTokenFromLocalStorage, removeIvFromLocalStorage,removeUserFromLocalStorage} from '../../auth';
 import { decryptData } from '../../auth';
 import validator from 'validator';
 import validatePassword from '@/app/functions/validatefunctions';
-
-
-
-
+import { handleServerErrors } from '@/utils/serverUtils';
 
 /*=========================================================================*/
 /*=====================PAGE PHONE FUNCTIONS=============================*/
@@ -79,6 +76,77 @@ export const fetchCountries = async () => {
 /*=========================================================================*/
 /*=====================PAGE SETTINGS FUNCTIONS=============================*/
 /*=========================================================================*/
+
+/*handle functions */
+export const handleChange = (e, setUserData, userData, setErrors, setValidationErrors) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    setErrors((prevErrors) => {
+        console.log(userData);
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors[e.target.name];
+        return updatedErrors;
+    });
+    setValidationErrors({});
+};
+
+export const handleFileChange = (e, setSelectedFile, setAvatarUrl) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setAvatarUrl(URL.createObjectURL(file));
+};
+
+export const handleDeleteAccount = async (e, id, token, setValidationErrors, setErrors) => {
+    e.preventDefault();
+    try {
+        fetchDeleteUser(id, token, setValidationErrors, setErrors);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+export const handleSubmit = async (e, id, token, userData, selectedFile, image, setValidationErrors, setErrors) => {
+    e.preventDefault();
+    const formErrors = validateUserFormData(userData);
+    if (Object.keys(formErrors).length === 0) {
+        const sanitizedData = sanitizeUserData(userData);
+        const formDataToSend = new FormData();
+        formDataToSend.append('data', JSON.stringify(sanitizedData));
+        formDataToSend.append('avatar', selectedFile);
+        formDataToSend.append('avatarText', image);
+        try {
+            fetchUpdateUserData(id, token, formDataToSend, setValidationErrors, setErrors);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setErrors(formErrors);
+    }
+};
+
+
+
+
+/*fetch functions*/
+
+
+export const fetchUpdateUserData = async (id, token, formDataToSend, setValidationErrors, setErrors) => {
+    const response = await fetch(`http://localhost:3001/api/userDetails/update/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': token
+        },
+        body: formDataToSend,
+    });
+    const responseData = await response.json();
+    if (response.ok) {
+        window.location.href = '/settings?success=true';
+    } else {
+        handleServerErrors(responseData, setValidationErrors, setErrors);
+    }
+}
+
+
 export const fetchUserData = async (id, setUserData, setImage) => {
     try {
         const token = getTokenFromLocalStorage();
@@ -119,6 +187,25 @@ export const fetchAddress = async (id, setAddress) => {
     }
 }
 
+export const fetchDeleteUser = async (id, token, setValidationErrors, setErrors)=>{
+    const response = await fetch(`http://localhost:3001/api/usersAdmin/deleteAccount/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+      const responseData = await response.json();
+      if (response.ok) {
+        removeIvFromLocalStorage();
+        removeTokenFromLocalStorage();
+        removeUserFromLocalStorage();
+        window.location.href = '/login';
+      } else {
+        handleServerErrors(responseData, setValidationErrors, setErrors);
+      }
+}
+
 export const getUserDataFromLocalStorage = async (setId) => {
     const userEncrypted = localStorage.getItem('User');
     const iv = localStorage.getItem('project');
@@ -133,6 +220,10 @@ export const getUserDataFromLocalStorage = async (setId) => {
         }
     }
 }
+
+
+
+/*Validation Functions */
 
 export const validateUserFormData = (userData) => {
     console.log(userData.Telefono);
@@ -214,5 +305,10 @@ export const validatePasswordError = (formData) => {
     }
     return passwordErrors
 }
+
+
+
+
+
 
 

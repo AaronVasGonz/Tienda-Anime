@@ -1,4 +1,4 @@
-import NavBarProducts from "@/components/productsNavBar";
+import NavBarProducts from "@/components/navigation/productsNavBar";
 import React from "react";
 import CardsProducts from "@/components/cards/cardProductContainer";
 import SearchBar from "@/components/navigation/searchbar";

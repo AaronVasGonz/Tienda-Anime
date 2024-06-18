@@ -14,6 +14,7 @@ module.exports = {
         'main-purple': '#b200d6', 
         'main-purple-pastel': '#b07bdc',
         'hover-purple': '#87129e', 
+        'bg-neutra-l950-transparent-50': 'rgba(10, 10, 10, 0.5)',
         'brand-dark': '#1E293B', 
         
       },
